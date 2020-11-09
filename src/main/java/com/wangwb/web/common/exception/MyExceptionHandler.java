@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 	全局异常处理
- * @author wangwbaaa
+ * @author wangwb
  *
  */
 @ControllerAdvice
