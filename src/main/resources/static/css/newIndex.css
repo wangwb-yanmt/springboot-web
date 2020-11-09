@@ -1,0 +1,23 @@
+#leftCard1{margin-bottom: 5px;}
+.leftCard1-tx{	
+	border-radius: 30px;
+  	width:60px;
+  	height:60px; 
+  	background: url("/images/touxiang.png") no-repeat center;
+  	background-size:60px;
+  	display: inline-block;
+  	margin-top: 10px;
+}
+
+.leftCard1-title{
+	color: #009688;
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 10px;
+	text-align: center;
+	background-color: #f2f2f2;
+	padding: 5px;
+	/* 解决div内放长英文字母或长数字不自动换行 */
+	/* word-wrap:break-word;
+	word-break:break-all; */
+}

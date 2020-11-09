@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>后台管理首页（无选项卡）</title>
+	<script src="/public/layui-v2.5.5/layui.js"></script>
+	<link rel="stylesheet" href="/public/layui-v2.5.5/css/layui.css">
+	<script src="/public/common.js"></script>
+	<!–[if lt IE8]>
+		<script src="/public/html5shiv.min.js"></script>
+	<![endif]–>
+	
+	<style>
+		html,body { min-width: 1600px;min-height: 900px;}
+	</style>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+	<div class="layui-header">
+  		<!-- 顶部logo区域 -->
+		<div class="layui-logo" style="width: 50%;text-align: left;font-size: 24px;font-weight: bold;overflow: hidden;">
+			<img src="/images/xwlogo.png" style="height: 50px;">后台管理系统前端模板
+		</div>
+	    <!-- 顶部栏目区域（可配合layui已有的水平导航） -->
+	    <!-- 右 -->
+		<ul class="layui-nav layui-layout-right">
+			<li class="layui-nav-item">
+				<a href="/html/daping/daping.html" target="_blank">大屏</a>
+			</li>
+			<li class="layui-nav-item">
+				<a href="javascript:void(0);" onclick="goHome();">主页</a>
+			</li>
+			<li class="layui-nav-item">
+				<a href="javascript:void(0);" onclick="openMsgCenter();">消息中心<span class="layui-badge">9</span></a>
+			</li>
+			<li class="layui-nav-item">
+	        	<a href="javascript:;" id="loginName"></a>
+	        	<dl class="layui-nav-child">
+	 				<dd><a href="javascript:void(0);" onclick="lookUserInfo();">用户信息</a></dd>
+	        		<dd><a href="javascript:void(0);" onclick="SetSecurity();">安全设置</a></dd>
+	        	</dl>
+			</li>
+			<li class="layui-nav-item">
+				<a href="javascript:void(0);" onclick="loginOut();">
+					<img src="/images/loginOut.png" style="height: 30px;">
+	     		</a>
+	     	</li>
+		</ul>
+ 	</div>
+  
+  <!-- 左侧	导航区域（可配合layui已有的垂直导航） -->
+  <div class="layui-side layui-bg-black">
+	<div class="layui-side-scroll">
+    	<ul class="layui-nav layui-nav-tree" lay-filter="moduleTree" id="moduleTree">
+<!--     		<li class="layui-nav-item layui-nav-itemed"> -->
+<!-- 			    <a href="javascript:;">默认展开</a> -->
+<!-- 			    <dl class="layui-nav-child"> -->
+<!-- 			      <dd> -->
+<!-- 			      	<a href="javascript:;">选项1</a> -->
+<!-- 			      	<dl class="layui-nav-child"> -->
+<!-- 				      <dd><a href="javascript:;">选项1</a></dd> -->
+<!-- 				      <dd><a href="javascript:;">选项2</a></dd> -->
+<!-- 				      <dd><a href="">跳转</a></dd> -->
+<!-- 				    	</dl> -->
+<!-- 			      </dd> -->
+<!-- 			      <dd><a href="javascript:;">选项2</a></dd> -->
+<!-- 			      <dd><a href="">跳转</a></dd> -->
+<!-- 			    </dl> -->
+<!-- 			  </li> -->
+<!-- 			  <li class="layui-nav-item"><a href="">产品</a></li> -->
+    	</ul>
+    </div>
+  </div>
+  
+  <!-- 内容主体区域 -->
+  <div class="layui-body" style="bottom: 0px;">
+  	<iframe src="/html/upDown/up1Down1.html" frameborder="0" width="100%" height="99.5%"></iframe>
+  </div>
+  
+  <!-- 底部固定区域 -->
+<!--   <div class="layui-footer" style="text-align: center;">www.wangwb.com</div> -->
+</div>
+</body>
+<script src="/js/index/index2.js"></script>
+</html>

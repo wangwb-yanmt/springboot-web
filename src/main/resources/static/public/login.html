@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  	<title>后台管理系统</title>
+  	<!-- layui css -->
+  	<link rel="stylesheet" href="/public/layui-v2.4.5/css/layui.css">
+  	<!-- layui js -->
+  	<script src="/public/layui-v2.4.5/layui.js"></script>
+<!--   	极验 -->
+  	<script src="https://static.geetest.com/static/tools/gt.js"></script>
+	<!--   	自己的common.js -->
+  	<script src="/public/common.js"></script>
+  	<!–[if lt IE8]>
+		<script src="/public/html5shiv.min.js"></script>
+	<![endif]–>
+  	<style type="text/css">
+  		html,body { min-width: 1600px;min-height: 900px;}
+  		body{
+  			width: 100%;
+  			height: 100%;
+  			background-image: url(/public/timg.jfif);
+  			background-size: cover;
+  			background-repeat:no-repeat;
+  		}
+  		.parent{
+  			position: relative;
+  		}
+  		.child{
+  			width: 600px;
+  			height: 400px;
+  			text-align: center;
+  			margin: auto;
+  			position: absolute;
+  			top: 0; left: 0; bottom: 0; right: 0;
+  			background-color: rgba(255, 255, 255, 0.3);
+  			border-radius: 5px;
+  			padding: 20px;
+  			
+  		}
+  		.title{
+  			margin-bottom: 50px;
+  			font-size: 35px;
+  			color: white;
+  		}
+  		.loginForm{
+  			width: 400px;
+  			text-align: center;
+  			margin: auto;
+  		}
+  	</style>
+</head>
+
+<body>
+<div id="topCard1" class="parent">
+	<div class="child">
+		<div class="title">XXXXX</div>
+		<form class="layui-form loginForm" lay-filter="example" id="loginForm">
+		  	<div class="layui-form-item" >
+				<input type="text" name="userName" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+		  	</div>
+		  	<div class="layui-form-item">
+		    	<input type=password name="password" lay-verify="required" lay-reqtext="密码不能为空" placeholder="请输入密码" autocomplete="off" class="layui-input">
+		  	</div>
+		  	<div class="layui-form-item" style="margin-top: 30px;">
+		    	<button class="layui-btn" lay-submit lay-filter="sessionLogin" style="width: 150px;">session登录(boot)</button>
+<!-- 		    	<button class="layui-btn" lay-submit lay-filter="tokenLogin" style="width: 150px;">token登录</button> -->
+				<button class="layui-btn" id="jiyan" style="width: 150px;">极验</button>
+		  	</div>
+		  	<div class="layui-form-item" style="margin-top: 30px;">
+		    	<button type="reset" class="layui-btn" style="width: 100px;">重置</button>
+		  	</div>
+<!-- 		  	<div class="layui-form-item" style="margin-top: 30px;"> -->
+<!-- 		  		<button type="button" class="layui-btn layui-btn-sm" onclick="chongzhi();">重置</button> -->
+<!-- 		  	</div> -->
+		</form>
+		<!-- <div style="margin-top: 20px;">
+	  		<a href="javascript:void(0);" onclick="openSaoMa();">手机扫码登陆</a>
+	  	</div> -->
+		
+	</div>
+</div>
+<div id="topCard2">
+	<p style="text-align: center;color: white;">提示：请使用IE10及以上浏览器或Chrome浏览器</p>
+</div>
+</body>
+<script>
+//使用的模块
+var form;
+var $;
+var localStorage = window.localStorage;
+layui.use(['form','jquery'], function(){
+	form = layui.form;
+	$ = layui.jquery;
+	
+	var docHeight = $(document).height();
+	//设置上面板高度
+	$("#topCard1").height(docHeight*0.8);
+	$("#topCard2").height(docHeight*0.2);
+	
+	//监听session提交
+	form.on('submit(sessionLogin)', function(data){
+		$.ajax({
+		    url:"/LoginController/login",
+		    data:{"userName":$("[name='userName']").val(),"password":$("[name='password']").val()},
+		    type:"Post",
+		    dataType:"json",
+		    success:function(data){
+		    	if(data.success == true){
+		    		window.location.href="/html/index/index2.html";
+		    	}else {
+		    		layer.msg(data.msg);
+		    	}
+		    },
+		    error:function(data){
+		    	layer.msg("请求出错啦！");
+		    }
+		});
+		
+	    return false;//阻止submit刷新页面
+	});
+	
+	//监听token提交
+	form.on('submit(tokenLogin)', function(data){
+		$.ajax({
+		    url:getwayUrl()+"/sc-service-demo/LoginController/login",
+		    data:{"userName":$("[name='userName']").val(),"password":$("[name='password']").val()},
+		    type:"Post",
+		    dataType:"json",
+		    success:function(data){
+		    	if(data.success == true){
+		    		setToken(data.token);
+		    		window.location.href="/html/index/index2.html";
+		    	}else {
+		    		layer.msg(data.msg);
+		    	}
+		    },
+		    error:function(data){
+		    	layer.msg("请求出错啦！");
+		    }
+		});
+		return false;//阻止submit刷新页面
+	});
+	
+	// 	一进页面就需要注册极验
+	$.ajax({
+		url: "/GeetestController/firstRegister?t=" + (new Date()).getTime(), // 加随机数防止缓存
+		type: "get",
+		dataType: "json",
+		success: function (res) {
+ 			initGeetest({
+                //4个必须参数
+				gt: res.gt,
+            challenge: res.challenge,
+            offline: !res.success, // 表示用户后台检测极验服务器是否宕机
+            new_captcha: res.new_captcha, // 用于宕机时表示是新验证码的宕机
+//             	可选参数
+            timeout: '5000',
+            product: "bind", // 产品形式，包括：float，popup
+            width: "300px",
+            https: true
+            }, function(captchaObj) {
+					captchaObj.onReady(function () {
+            		alert("准备好了")
+            	}).onSuccess(function () {
+            		var result = captchaObj.getValidate();
+            		if (!result) {
+            			return alert('请完成验证');
+                    	}
+            		$.ajax({
+            			url: '/GeetestController/secondValidate',
+            			type: 'POST',
+            			dataType: 'json',
+            			data: {
+            				username: $("[name='userName']").val(),
+            				password: $("[name='password']").val(),
+            				geetest_challenge: result.geetest_challenge,
+            				geetest_validate: result.geetest_validate,
+            				geetest_seccode: result.geetest_seccode
+            			},
+           			success: function (data) {
+           				if (data.status === 'success') {
+           					setTimeout(function () {
+           						layer.msg('登录成功');
+                               }, 1500);
+           				} else if (data.status === 'fail') {
+            					setTimeout(function () {
+           						layer.msg('登录失败，请完成验证');
+									captchaObj.reset();
+                               	}, 1500);
+                           	}
+                       	}
+                    });
+                });
+// 				点击按钮展示验证
+				$('#jiyan').click(function () {
+					captchaObj.verify();
+                })
+            });
+        }
+    });
+	
+});
+//重置
+function chongzhi() {
+	$("#loginForm")[0].reset();
+	queryList();
+}
+var openSaoMa = function() {
+	layer.msg("手机扫码登陆");PASSWORD
+}
+</script>
+</html>

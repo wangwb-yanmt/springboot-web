@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  	<title>大屏展示</title>
+  	<!-- layui css -->
+  	<link rel="stylesheet" href="/public/layui-v2.5.5/css/layui.css">
+  	<!-- ztree css -->
+  	<link rel="stylesheet" href="/public/ztree/css/metroStyle/metroStyle.css">
+  	<link rel="stylesheet" href="/css/ztree.css">
+  	<!-- layui js -->
+	<script src="/public/jquery1.8.3.min.js"></script>
+  	<script src="/public/layui-v2.5.5/layui.js"></script>
+  	<!-- ztree js -->
+  	<script src="/public/ztree/js/jquery.ztree.core.js"></script>
+  	<script src="/public/ztree/js/jquery.ztree.excheck.min.js"></script>
+  	<script src="/public/ztreeUtil.js"></script>
+<!--   	echarts -->
+  	<script src="/public/echarts.min.js"></script>
+  	<script src="/public/echarts-theme/vintage.js"></script>
+  	<script src="/public/echarts-theme/dark.js"></script>
+  	<!-- 自己的 -->
+  	<script src="/public/common.js"></script>
+	<!–[if lt IE8]>
+		<script src="/public/html5shiv.min.js"></script>
+	<![endif]–>
+	<style>
+		html,body { min-width: 1600px;min-height: 900px;}
+		.box{
+			margin-bottom: 5px;
+			display: flex;
+			flex-flow: row wrap;
+			align-items: center;
+			justify-content: flex-start;
+		}
+		.box>div{
+			margin-bottom: 0px;
+			flex: 1;
+		}
+		.box>div:not(:first-child){
+			margin-left:10px;
+		}
+	</style>
+</head>
+
+<body style="background-color: #F2F2F2;padding: 5px;">
+<!-- 小面板 -->
+<div class="box">
+	<div class="layui-card">
+		<div class="layui-card-header">项目</div>
+		<div class="layui-card-body">
+			<div id="charts1" style="height:300px;"></div>
+		</div>
+	</div>
+	<div class="layui-card">
+		<div class="layui-card-header">项目</div>
+		<div class="layui-card-body">
+			<div id="charts2" style="height:300px;"></div>
+		</div>
+	</div>
+	<div class="layui-card">
+		<div class="layui-card-header">项目</div>
+		<div class="layui-card-body">
+			<div id="charts3" style="height:300px;"></div>
+		</div>
+	</div>
+	<div class="layui-card">
+		<div class="layui-card-header">项目</div>
+		<div class="layui-card-body">
+			<div id="charts4" style="height:300px;"></div>
+		</div>
+	</div>
+</div>
+<div class="box">
+	<div class="layui-card">
+		<div class="layui-card-header">项目</div>
+		<div class="layui-card-body">
+			<div id="charts5" style="height:300px;"></div>
+		</div>
+	</div>
+	<div class="layui-card">
+		<div class="layui-card-header">项目</div>
+		<div class="layui-card-body">
+			<div id="charts6" style="height:300px;"></div>
+		</div>
+	</div>
+</div>
+
+<div class="box">
+	<div class="layui-card">
+		<div class="layui-card-header">项目</div>
+		<div class="layui-card-body">
+			<div id="charts7" style="height:300px;"></div>
+		</div>
+	</div>
+	<div class="layui-card">
+		<div class="layui-card-header">项目</div>
+		<div class="layui-card-body">
+			<div id="charts8" style="height:300px;"></div>
+		</div>
+	</div>
+	<div class="layui-card">
+		<div class="layui-card-header">项目</div>
+		<div class="layui-card-body">
+			<div id="charts9" style="height:300px;"></div>
+		</div>
+	</div>
+</div>
+</body>
+<script src="/html/daping/daping.js"></script>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  	<title>首页布局测试</title>
+  	<!-- layui css -->
+  	<link rel="stylesheet" href="/public/layui-v2.4.5/css/layui.css">
+  	<!-- layui js -->
+  	<script src="/public/layui-v2.4.5/layui.js"></script>
+  	<script src="/public/common.js"></script>
+	<!–[if lt IE8]>
+		<script src="/public/html5shiv.min.js"></script>
+	<![endif]–>
+	
+	<style>
+		html,body { min-width: 1500px;}
+	</style>
+</head>
+
+<body style="background-color: #F2F2F2;padding: 2.5px;">
+<div style="float: left;width: 12%;margin-right: 2.5px;" id="leftDiv">
+	<!-- 左上面板 -->
+	<div id="leftTopCard" style="background-color: red;margin-bottom: 2.5px;height: 60px;">
+		<div style="background-color: blue;height: 20px;">标题</div>
+		<div style="background-color: gray;height: 20px;">头像</div>
+		<div style="background-color: yellow;height: 20px;">退出登陆</div>
+	</div>
+	<!-- 左下面板 -->
+	<div id="leftBottomCard" style="background-color: white;">
+		<a href="javascript:void(0);" onclick="goToPage('/html/up1Down1.html');">上下</a>
+		<a href="javascript:void(0);" onclick="goToPage('/html/left1right1.html');">左右</a>
+	</div>
+</div>
+<!-- 右面板 -->
+<div id="rightTopCard" style="float: left;width: 87.5%;margin-bottom: 0px;">
+	<iframe id="contentHtml" src="" frameborder="0" width="100%" height="100%" ></iframe>
+</div>
+</body>
+<script>
+var $;
+layui.use('jquery', function(){
+	$ = layui.jquery;
+	
+	var docHeight = $(document).height();
+	//设置右面板高度
+	var rightCardHeight = docHeight-5;
+	$("#rightTopCard").height(rightCardHeight);
+	//设置左下面板高度
+	var leftTopHeight = $("#leftTopCard").height();
+	$("#leftBottomCard").height(rightCardHeight-leftTopHeight);
+	
+});
+function goToPage(url) {
+	$("#contentHtml").attr("src",url);
+}
+</script>
+</html>

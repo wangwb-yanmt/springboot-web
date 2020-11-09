@@ -1,0 +1,109 @@
+
+server:
+  port: 7777
+  servlet:
+    session:
+      timeout: 60m
+        
+spring:
+  application:
+    name: springboot-web
+  datasource:
+    #使用阿里druid连接池配置数据源
+    druid:
+#        数据源1
+      one:
+#        driver-class-name: oracle.jdbc.OracleDriver    不用配置也可以,springboot会根据url自动识别驱动
+        url: jdbc:oracle:thin:@192.168.1.142:1521:GS11
+        username: JSECIPP
+        password: JSECIPP
+           #其他配置
+        initial-size: 10
+        max-active: 100
+        min-idle: 10
+        max-wait: 60000
+        query-timeout: 10000
+        validation-query: SELECT 1 FROM DUAL
+        validation-query-timeout: 2000
+#        数据源2
+      two:
+#        driver-class-name: oracle.jdbc.OracleDriver    不用配置也可以,springboot会根据url自动识别驱动
+        url: jdbc:oracle:thin:@192.168.1.141:1521:GS12
+        username: newbais_sp_kf
+        password: newbais
+           #其他配置
+        initial-size: 10
+        max-active: 100
+        min-idle: 10
+        max-wait: 60000
+        query-timeout: 10000
+        validation-query: SELECT 1 FROM DUAL
+        validation-query-timeout: 2000
+#      filters: stat
+         #配置监控页面servlet
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        login-username: wangwb
+        login-password: 111111
+        allow: 10.66.1.74
+        reset-enable: false
+            #监控页对应的filter
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 1000          enabled: true
+  redis:
+    host: 10.66.1.74
+    port: 6379
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1s   #最大阻塞等待时间(负数表示没限制)
+        max-idle: 8     #最大空闲
+        min-idle: 0     #最小空闲
+    timeout: 10s
+      
+  rabbitmq:
+    host: localhost
+    port: 5672
+    
+  #上传文件
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 100MB    
+#      location: 
+
+#  data:
+#    mongodb:
+#      uri: 
+##      host: 
+##      port: 
+#      database: 
+#      username: 
+#      password:
+#      -  
+
+
+
+#mybatis:
+#  config-location: classpath:mybatis-config.xml      #mybatis配置文件，下方的两个属性也可以在该文件中配置
+#  mapper-locations:
+#  -  classpath:mapper/*.xml    #xml文件的位置，如果没配置该项，默认在接口类所在包寻找
+#  type-aliases-package: com.mybatis.domain   #实体类别名包 
+
+    
+#logging:#  file: myapp.log #日志文件名称#  level:#    root: info,error
+    
+    
+    
+    
+    
+    
+    
