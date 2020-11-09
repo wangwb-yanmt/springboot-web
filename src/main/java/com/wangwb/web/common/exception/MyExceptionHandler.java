@@ -13,7 +13,7 @@ import com.wangwb.web.common.bean.BaseResponse;
 
 /**
  * 	全局异常处理
- * @author wangwb@sparknet.com.cn
+ * @author wangwb
  *
  */
 @ControllerAdvice

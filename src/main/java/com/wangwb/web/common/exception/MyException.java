@@ -17,6 +17,10 @@ public class MyException extends RuntimeException {
 		this.setCode(code);
 		this.setMsg(msg);
 	}
+	
+	public MyException(String msg) {
+		this.setMsg(msg);
+	}
 
 	public int getCode() {
 		return code;
