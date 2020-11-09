@@ -80,6 +80,10 @@ spring:
       max-request-size: 100MB    
 #      location: 
 
+  devtools:
+    restart:
+      enabled: true
+      
 #  data:
 #    mongodb:
 #      uri: 
