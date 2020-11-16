@@ -71,7 +71,7 @@ public class LoginController {
     	String password = StringUtil.nullToEmpty( paramsMap.get( "password" ) );//密码
 		if("wangwenbin".equals(userName) && "111111".equals(password)){
 			UserBean userInfo = new UserBean();
-			userInfo.setUserId("001");
+			userInfo.setUserId("200975");
 			session.setAttribute("sessionBean", userInfo);
 			resultMap.put("msg", "登陆成功");
 			resultMap.put("success",true);

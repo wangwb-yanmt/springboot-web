@@ -91,7 +91,11 @@ function sendAjax(url,params) {
 	    type:"Post",
 	    dataType:"json",
 	    success:function(data){
-	    	resultData = data;
+	    	if(data.success == true) {
+	    		resultData = data;
+	    	}else {
+	    		layer.msg(data.msg);
+	    	}
 	    },
 	    error:function(data){
 	    	layer.msg("请求出错啦！");

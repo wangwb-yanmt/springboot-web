@@ -1,24 +1,36 @@
 package com.wangwb.web.common.bean;
 
-import java.util.function.Predicate;
 
 /**
  * 	返回json数据	
  * @author wangwb
  *
  */
-public class BaseResponse<T> {
+public class BaseResponse {
 
 	private int code;
 	private boolean success;
-    private String msg;
-    private T data;
+	private String msg;
+	private Object data;
+    
+	public BaseResponse(int code, boolean success, String msg, Object data) {
+    	this.code = code;
+    	this.success = success;
+    	this.msg = msg;
+    	this.data = data;
+    }
+	
+	public BaseResponse(boolean success, String msg, Object data) {
+    	this.success = success;
+    	this.msg = msg;
+    	this.data = data;
+    }
 
-    public int getCode() {
+	public int getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+	public void setCode(int code) {
         this.code = code;
     }
 
@@ -34,15 +46,15 @@ public class BaseResponse<T> {
         return msg;
     }
 
-    public void setMsg(String msg) {
+	public void setMsg(String msg) {
         this.msg = msg;
     }
 
-	public T getData() {
+	public Object getData() {
 		return data;
 	}
 
-	public void setData(T data) {
+	public void setData(Object data) {
 		this.data = data;
 	}
 	

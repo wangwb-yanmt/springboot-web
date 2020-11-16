@@ -3,15 +3,9 @@ package com.wangwb.web.common.component;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 
 import com.wangwb.web.common.bean.Page;
@@ -103,9 +97,10 @@ public class BaseDao{
 				page.setMsg("查询成功");
 				page.setCount(countNum);
 			}else {
-				page.setMsg("查询成功,无结果集");
+				page.setMsg("查询无结果集");
 			}
 		} catch (Exception e) {
+			page.setMsg("查询时出现异常");
 			throw new RuntimeException(e.getMessage());
 		} 
 		return page;
@@ -122,7 +117,7 @@ public class BaseDao{
 	public Page queryForPage(String sql, String pageNo, String limit, Object[] args) {
 		Page page = new Page();
 		if("".equals(pageNo) || "".equals(limit)) {
-			page.setMsg("请传入正确的分页参数");
+			page.setMsg("查询失败,请传入正确的分页参数");
 			return page;
 		}
 		try {
@@ -138,6 +133,7 @@ public class BaseDao{
 				String querySql = "SELECT * FROM (SELECT TEMP.*,ROWNUM RN FROM ("+sql+") TEMP WHERE ROWNUM <= "+end+") WHERE RN >= "+start+"" ;
 				List<Map<String, Object>> list = jdbcTemplate.queryForList(querySql, args);
 				page.setList(list);
+				page.setMsg("查询成功");
 				page.setCount(countNum);
 			}else {
 				page.setMsg("查询无结果集");

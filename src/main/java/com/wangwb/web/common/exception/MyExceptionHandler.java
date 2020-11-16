@@ -28,6 +28,7 @@ public class MyExceptionHandler {
 	@ExceptionHandler(MyException.class)
 	public Map<String, Object> myExceptionHandler(MyException e) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
 		resultMap.put("code", e.getCode());
 		resultMap.put("msg", e.getMsg());
 		return resultMap;

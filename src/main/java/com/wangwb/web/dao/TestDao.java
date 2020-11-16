@@ -32,7 +32,7 @@ public class TestDao{
 	 * @param paramsMap
 	 * @return
 	 */
-	public Page getList(Map<String, Object> paramsMap) throws Exception{
+	public Page getList(Map<String, Object> paramsMap) {
 		String pageNo = StringUtil.nullToEmpty(paramsMap.get("pageNo"));
 		String limit = StringUtil.nullToEmpty(paramsMap.get("limit"));
 		StringBuffer sb = new StringBuffer();
