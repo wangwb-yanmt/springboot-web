@@ -56,7 +56,8 @@ spring:
       filter:
         stat:
           log-slow-sql: true
-          slow-sql-millis: 1000          enabled: true
+          slow-sql-millis: 1000
+          enabled: true
   redis:
     host: 10.66.1.74
     port: 6379
@@ -103,7 +104,10 @@ spring:
 #  type-aliases-package: com.mybatis.domain   #实体类别名包 
 
     
-#logging:#  file: myapp.log #日志文件名称#  level:#    root: info,error
+#logging:
+#  file: myapp.log #日志文件名称
+#  level:
+#    root: info,error
     
     
     
