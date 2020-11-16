@@ -24,9 +24,9 @@ public class TimerTask {
 
 	private Logger logger = LoggerFactory.getLogger(TimerTask.class);
 
-	@Scheduled(cron="0/10 * * * * *")
+	@Scheduled(cron="0/30 * * * * *")
 	public void task1() {
-		logger.info("10秒一次");
+		logger.info("30秒一次");
 	}
 	
 	/*@Scheduled(fixedRate = 5000)
