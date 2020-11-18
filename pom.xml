@@ -156,11 +156,11 @@
 		    <artifactId>httpclient</artifactId>
 		</dependency>
 		<!-- netty框架依赖 -->
-		<dependency>
-		    <groupId>io.netty</groupId>
-		    <artifactId>netty-all</artifactId>
-		    <version>4.1.48.Final</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 		    <groupId>io.netty</groupId> -->
+<!-- 		    <artifactId>netty-all</artifactId> -->
+<!-- 		    <version>4.1.48.Final</version> -->
+<!-- 		</dependency> -->
 		<!-- mongodb -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -221,6 +221,16 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 			<scope>true</scope>
+		</dependency>
+<!-- 		spring security -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.boot</groupId> -->
+<!-- 			<artifactId>spring-boot-starter-security</artifactId> -->
+<!-- 		</dependency> -->
+<!-- 		视图框架thymeleaf -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 	</dependencies>
 

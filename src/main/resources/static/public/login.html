@@ -64,9 +64,10 @@
 		    	<input type=password name="password" lay-verify="required" lay-reqtext="密码不能为空" placeholder="请输入密码" autocomplete="off" class="layui-input">
 		  	</div>
 		  	<div class="layui-form-item" style="margin-top: 30px;">
-		    	<button class="layui-btn" lay-submit lay-filter="sessionLogin" style="width: 150px;">session登录(boot)</button>
-<!-- 		    	<button class="layui-btn" lay-submit lay-filter="tokenLogin" style="width: 150px;">token登录</button> -->
 				<button class="layui-btn" id="jiyan" style="width: 150px;">极验</button>
+		  	</div>
+		  	<div class="layui-form-item" style="margin-top: 30px;">
+		    	<button class="layui-btn" lay-submit lay-filter="sessionLogin" style="width: 150px;">session登录</button>
 		  	</div>
 		  	<div class="layui-form-item" style="margin-top: 30px;">
 		    	<button type="reset" class="layui-btn" style="width: 100px;">重置</button>
@@ -119,28 +120,6 @@ layui.use(['form','jquery'], function(){
 		});
 		
 	    return false;//阻止submit刷新页面
-	});
-	
-	//监听token提交
-	form.on('submit(tokenLogin)', function(data){
-		$.ajax({
-		    url:getwayUrl()+"/sc-service-demo/LoginController/login",
-		    data:{"userName":$("[name='userName']").val(),"password":$("[name='password']").val()},
-		    type:"Post",
-		    dataType:"json",
-		    success:function(data){
-		    	if(data.success == true){
-		    		setToken(data.token);
-		    		window.location.href="/html/index/index2.html";
-		    	}else {
-		    		layer.msg(data.msg);
-		    	}
-		    },
-		    error:function(data){
-		    	layer.msg("请求出错啦！");
-		    }
-		});
-		return false;//阻止submit刷新页面
 	});
 	
 	// 	一进页面就需要注册极验
@@ -208,7 +187,7 @@ function chongzhi() {
 	queryList();
 }
 var openSaoMa = function() {
-	layer.msg("手机扫码登陆");PASSWORD
+	layer.msg("手机扫码登陆");
 }
 </script>
 </html>

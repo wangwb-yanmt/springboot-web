@@ -6,24 +6,29 @@ package com.wangwb.web.common.bean;
  * @author wangwb
  *
  */
-public class BaseResponse {
+public class JsonResult {
 
 	private int code;
+	
 	private boolean success;
+	
 	private String msg;
+	
 	private Object data;
-    
-	public BaseResponse(int code, boolean success, String msg, Object data) {
-    	this.code = code;
+	
+	public JsonResult() {}
+	
+	public JsonResult(boolean success, int Code, String msg, Object data) {
     	this.success = success;
+    	this.code = Code;
     	this.msg = msg;
     	this.data = data;
     }
-	
-	public BaseResponse(boolean success, String msg, Object data) {
-    	this.success = success;
+    
+	public JsonResult(boolean success, int Code, String msg) {
+		this.success = success;
+    	this.code = Code;
     	this.msg = msg;
-    	this.data = data;
     }
 
 	public int getCode() {
@@ -57,5 +62,6 @@ public class BaseResponse {
 	public void setData(Object data) {
 		this.data = data;
 	}
+
 	
 }

@@ -3,12 +3,17 @@ package com.wangwb.web.common.component;
 import java.util.List;
 import java.util.Map;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.wangwb.web.common.bean.Page;
+import com.wangwb.web.common.exception.MyException;
+import com.wangwb.web.common.myenum.ResultCode;
 import com.wangwb.web.common.util.StringUtil;
 
 /**
@@ -77,8 +82,11 @@ public class BaseDao{
 	 */
 	public Page queryForPage(String sql, String pageNo, String limit) {
 		Page page = new Page();
+		//没有分页参数直接返回
 		if("".equals(pageNo) || "".equals(limit)) {
-			page.setMsg("查询失败,请传入正确的分页参数");
+			page.setSuccess(false);
+			page.setCode(ResultCode.PAGE_PARAM_ERROR.getCode());
+			page.setMsg(ResultCode.PAGE_PARAM_ERROR.getMessage());
 			return page;
 		}
 		try {
@@ -93,15 +101,20 @@ public class BaseDao{
 				int end = pageNoInt*limitInt;
 				String querySql = "SELECT * FROM (SELECT TEMP.*,ROWNUM RN FROM ("+sql+") TEMP WHERE ROWNUM <= "+end+") WHERE RN >= "+start+"" ;
 				List<Map<String, Object>> list = jdbcTemplate.queryForList(querySql);
-				page.setList(list);
-				page.setMsg("查询成功");
+				page.setSuccess(true);
+				page.setCode(ResultCode.SUCCESS.getCode());
+				page.setMsg(ResultCode.SUCCESS.getMessage());
 				page.setCount(countNum);
+				page.setList(list);
 			}else {
-				page.setMsg("查询无结果集");
+				page.setSuccess(true);
+				page.setCode(ResultCode.SUCCESS.getCode());
+				page.setMsg(ResultCode.SUCCESS.getMessage());
+				page.setCount(countNum);
 			}
 		} catch (Exception e) {
-			page.setMsg("查询时出现异常");
-			throw new RuntimeException(e.getMessage());
+			//为了事物回滚，抛出RuntimeException
+			throw new RuntimeException(e);
 		} 
 		return page;
 	}
@@ -117,34 +130,35 @@ public class BaseDao{
 	public Page queryForPage(String sql, String pageNo, String limit, Object[] args) {
 		Page page = new Page();
 		if("".equals(pageNo) || "".equals(limit)) {
-			page.setMsg("查询失败,请传入正确的分页参数");
+			page.setSuccess(false);
+			page.setCode(ResultCode.PAGE_PARAM_ERROR.getCode());
+			page.setMsg(ResultCode.PAGE_PARAM_ERROR.getMessage());
 			return page;
 		}
-		try {
-			List<Map<String, Object>> countList = this.queryForList("SELECT COUNT(*) AS COUNT FROM (" + sql + ")", args);
-			String countString = StringUtil.nullToEmpty(countList.get(0).get("COUNT"));
-			int countNum = Integer.parseInt(countString);
-			//有结果集
-			if(countNum > 0) {
-				int pageNoInt = Integer.parseInt(pageNo);
-				int limitInt = Integer.parseInt(limit);
-				int start = (pageNoInt-1)*limitInt+1;
-				int end = pageNoInt*limitInt;
-				String querySql = "SELECT * FROM (SELECT TEMP.*,ROWNUM RN FROM ("+sql+") TEMP WHERE ROWNUM <= "+end+") WHERE RN >= "+start+"" ;
-				List<Map<String, Object>> list = jdbcTemplate.queryForList(querySql, args);
-				page.setList(list);
-				page.setMsg("查询成功");
-				page.setCount(countNum);
-			}else {
-				page.setMsg("查询无结果集");
-			}
-		} catch (Exception e) {
-			page.setMsg("查询时出现异常");
-			throw new RuntimeException(e.getMessage());
+		List<Map<String, Object>> countList = this.queryForList("SELECT COUNT(*) AS COUNT FROM (" + sql + ")", args);
+		String countString = StringUtil.nullToEmpty(countList.get(0).get("COUNT"));
+		int countNum = Integer.parseInt(countString);
+		//有结果集
+		if(countNum > 0) {
+			int pageNoInt = Integer.parseInt(pageNo);
+			int limitInt = Integer.parseInt(limit);
+			int start = (pageNoInt-1)*limitInt+1;
+			int end = pageNoInt*limitInt;
+			String querySql = "SELECT * FROM (SELECT TEMP.*,ROWNUM RN FROM ("+sql+") TEMP WHERE ROWNUM <= "+end+") WHERE RN >= "+start+"" ;
+			List<Map<String, Object>> list = jdbcTemplate.queryForList(querySql, args);
+			page.setSuccess(true);
+			page.setCode(0);
+			page.setMsg("查询成功");
+			page.setCount(countNum);
+			page.setList(list);
+		}else {
+			page.setSuccess(true);
+			page.setCode(0);
+			page.setMsg("查询成功,无结果集");
+			page.setCount(countNum);
 		}
 		return page;
 	}
-	
 	
 	
 }

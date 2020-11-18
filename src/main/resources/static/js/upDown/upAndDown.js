@@ -120,8 +120,8 @@ function queryList() {
 			return {
 				"code": res.code, //解析接口状态
 				"msg": res.msg, //解析提示文本
-				"count": res.body.count, //解析数据长度
-				"data": res.body.data //解析数据列表
+				"count": res.count, //解析数据长度
+				"data": res.list //解析数据列表
 			};
 		},
 		request: {		//用于对分页请求的参数重新设定名称
@@ -162,7 +162,7 @@ function queryTree() {
 	    dataType:"json",
 	    success:function(data){
 	    	if(data.success == true){
-	    		var zNodes = data.body.data;
+	    		var zNodes = data.data;
 	    		renderZtree("treeDemo",zNodes);
 	    	}else {
 	    		layer.msg(data.msg);

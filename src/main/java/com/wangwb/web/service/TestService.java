@@ -1,9 +1,5 @@
 package com.wangwb.web.service;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,10 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.wangwb.web.common.bean.JsonResult;
 import com.wangwb.web.common.bean.ModuleTree;
 import com.wangwb.web.common.bean.Page;
-import com.wangwb.web.common.component.TimerTask;
-import com.wangwb.web.common.exception.MyException;
+import com.wangwb.web.common.myenum.ResultCode;
 import com.wangwb.web.common.util.ExcelUtil;
 import com.wangwb.web.common.util.ModuleTreeUtil;
 import com.wangwb.web.common.util.ZtreeKeyTransUtil;
@@ -45,24 +41,14 @@ public class TestService {
 	 * @param loginUserId
 	 * @return
 	 */
-	public Map<String, Object> getList(Map<String, Object> paramsMap) {
-		Map<String,Object> resultMap = new HashMap<String, Object>();
-		Map<String,Object> bodyMap = new HashMap<String, Object>();
-		
+	public Page getList(Map<String, Object> paramsMap) {
+		Page page = null;
 		try {
-			Page page = testDao.getList(paramsMap);
-			bodyMap.put("data", page.getList());
-			bodyMap.put("count", page.getCount());
-			
-			resultMap.put("success", true);
-			resultMap.put("code", 0);
-			resultMap.put("msg", page.getMsg());
-			resultMap.put("body", bodyMap);
+			page = testDao.getList(paramsMap);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new MyException(-1,"出现异常");
+			throw new RuntimeException(e);
 		}
-		return resultMap;
+		return page;
 	}
 
 	/**
@@ -71,20 +57,18 @@ public class TestService {
 	 * @param loginUserId
 	 * @return
 	 */
-	public Map<String, Object> updateData(Map<String, Object> paramsMap, String loginUserId) {
-		Map<String,Object> resultMap = new HashMap<String, Object>();
-		Map<String,Object> bodyMap = new HashMap<String, Object>();
-		
+	public JsonResult updateData(Map<String, Object> paramsMap, String loginUserId) {
+		JsonResult jsonResult = new JsonResult();
 		try {
 			testDao.updateData(paramsMap);
 			testDao.updateData2(paramsMap);
-			resultMap.put("code", 0);
-			resultMap.put("msg", "更新成功");
+			jsonResult.setSuccess(true);
+			jsonResult.setCode(ResultCode.SUCCESS.getCode());
+			jsonResult.setMsg(ResultCode.SUCCESS.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new MyException(-1,"出现异常");
+			throw new RuntimeException(e);
 		}
-		return resultMap;
+		return jsonResult;
 	}
 
 	/**
@@ -93,25 +77,20 @@ public class TestService {
 	 * @param loginUserId
 	 * @return
 	 */
-	public Map<String, Object> queryTree(Map<String, Object> paramsMap, String loginUserId) {
-		Map<String,Object> resultMap = new HashMap<String, Object>();
-		Map<String,Object> bodyMap = new HashMap<String, Object>();
-		
+	public JsonResult queryTree(Map<String, Object> paramsMap, String loginUserId) {
+		JsonResult jsonResult = new JsonResult();
 		try {
 			List<Map<String, Object>> dataList = testDao.queryTree();
 			dataList = ZtreeKeyTransUtil.ZtreeKeyTrans(dataList);
 			
-			bodyMap.put("data", dataList);
-			
-			resultMap.put("code", 0);
-			resultMap.put("success", true);
-			resultMap.put("msg", "查询成功");
-			resultMap.put("body", bodyMap);
+			jsonResult.setSuccess(true);
+			jsonResult.setCode(ResultCode.SUCCESS.getCode());
+			jsonResult.setMsg(ResultCode.SUCCESS.getMessage());
+			jsonResult.setData(dataList);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new MyException(-1,"出现异常");
+			throw new RuntimeException(e);
 		}
-		return resultMap;
+		return jsonResult;
 	}
 
 	/**
@@ -120,41 +99,35 @@ public class TestService {
 	 * @param loginUserId
 	 * @return
 	 */
-	public Map<String, Object> queryModule(Map<String, Object> paramsMap, String loginUserId) {
-		Map<String,Object> resultMap = new HashMap<String, Object>();
-		Map<String,Object> bodyMap = new HashMap<String, Object>();
-		
+	public JsonResult queryModule(Map<String, Object> paramsMap, String loginUserId) {
+		JsonResult jsonResult = new JsonResult();
 		try {
 			List<Map<String, Object>> dataList = testDao.queryModule();
 			List<ModuleTree> module = ModuleTreeUtil.getModuleTree(dataList);
 			
-			bodyMap.put("data", module);
-			
-			resultMap.put("code", 0);
-			resultMap.put("success", true);
-			resultMap.put("msg", "查询成功");
-			resultMap.put("body", bodyMap);
+			jsonResult.setSuccess(true);
+			jsonResult.setCode(ResultCode.SUCCESS.getCode());
+			jsonResult.setMsg(ResultCode.SUCCESS.getMessage());
+			jsonResult.setData(module);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new MyException(-1,"出现异常");
+			throw new RuntimeException(e);
 		}
-		return resultMap;
+		return jsonResult;
 	}
 	
 	
-	public Map<String, Object> queryLoginInfo(Map<String, Object> paramsMap, String loginId) {
-		Map<String,Object> resultMap = new HashMap<String, Object>();
+	public JsonResult queryLoginInfo(Map<String, Object> paramsMap, String loginId) {
+		JsonResult jsonResult = new JsonResult();
 		try {
 			List<Map<String, Object>> data = testDao.queryLoginInfo(loginId);
-			resultMap.put("code", 0);
-			resultMap.put("success", true);
-			resultMap.put("msg", "查询成功");
-			resultMap.put("data", data);
+			jsonResult.setSuccess(true);
+			jsonResult.setCode(ResultCode.SUCCESS.getCode());
+			jsonResult.setMsg(ResultCode.SUCCESS.getMessage());
+			jsonResult.setData(data);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new MyException(-1,"查询出现异常");
+			throw new RuntimeException(e);
 		}
-		return resultMap;
+		return jsonResult;
 	}
 	
 	public void exportExcel(Map<String, Object> paramsMap,HttpServletRequest request,HttpServletResponse response) throws Exception {

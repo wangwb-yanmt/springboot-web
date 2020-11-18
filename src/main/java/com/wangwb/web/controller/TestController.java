@@ -7,17 +7,16 @@ import java.util.Map.Entry;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.wangwb.web.common.bean.JsonResult;
+import com.wangwb.web.common.bean.Page;
 import com.wangwb.web.common.bean.UserBean;
-import com.wangwb.web.common.exception.MyException;
 import com.wangwb.web.common.util.ParamUtil;
 import com.wangwb.web.common.util.StringUtil;
 import com.wangwb.web.service.TestService;
@@ -54,10 +53,13 @@ public class TestController {
 	 */
 	@ApiOperation(value = "返回列表")
 	@PostMapping("/getList")
-	public Map<String, Object> getList(HttpServletRequest request) throws Exception {
+	public Page getList(HttpServletRequest request) throws Exception {
 		Map<String,Object> paramsMap = ParamUtil.requestParamMap(request);
-//		UserBean userBean = (UserBean) request.getSession().getAttribute("sessionBean");
-//      String loginUserId = StringUtil.nullToEmpty(userBean.getUserId());
+		//session模式(SessionFilter)
+		UserBean userBean = (UserBean) request.getSession().getAttribute("sessionBean");
+//		String loginId = userBean.getUserId();
+		//token模式(TokenFilter)
+		String loginId = StringUtil.nullToEmpty(request.getParameter("loginId"));
 		return testService.getList(paramsMap);
 		
 	} 
@@ -70,11 +72,14 @@ public class TestController {
 	 */
 	@ApiOperation(value = "查询树测试")
 	@PostMapping("/queryTree")
-	public Map<String, Object> queryTree(HttpServletRequest request) throws Exception {
+	public JsonResult queryTree(HttpServletRequest request) throws Exception {
 		Map<String,Object> paramsMap = ParamUtil.requestParamMap(request);
+		//session模式(SessionFilter)
 		UserBean userBean = (UserBean) request.getSession().getAttribute("sessionBean");
-        String loginUserId = userBean.getUserId();
-		return testService.queryTree(paramsMap,loginUserId);
+//		String loginId = userBean.getUserId();
+		//token模式(TokenFilter)
+		String loginId = StringUtil.nullToEmpty(request.getParameter("loginId"));
+		return testService.queryTree(paramsMap,loginId);
 		
 	} 
 	
@@ -86,21 +91,27 @@ public class TestController {
 	 * @throws Exception
 	 */
 	@PostMapping("/updateData")
-	public Map<String, Object> updateData(HttpServletRequest request) throws Exception {
+	public JsonResult updateData(HttpServletRequest request) throws Exception {
 		Map<String,Object> paramsMap = ParamUtil.requestParamMap(request);
+		//session模式(SessionFilter)
 		UserBean userBean = (UserBean) request.getSession().getAttribute("sessionBean");
-        String loginUserId = userBean.getUserId();
-		return testService.updateData(paramsMap,loginUserId);
+//		String loginId = userBean.getUserId();
+		//token模式(TokenFilter)
+		String loginId = StringUtil.nullToEmpty(request.getParameter("loginId"));
+		return testService.updateData(paramsMap,loginId);
 		
 	} 
 	
 	@ApiOperation(value = "查询左侧菜单")
 	@PostMapping("/queryModule")
-	public Map<String, Object> queryModule(HttpServletRequest request) throws Exception {
+	public JsonResult queryModule(HttpServletRequest request) throws Exception {
 		Map<String,Object> paramsMap = ParamUtil.requestParamMap(request);
+		//session模式(SessionFilter)
 		UserBean userBean = (UserBean) request.getSession().getAttribute("sessionBean");
-        String loginUserId = userBean.getUserId();
-		return testService.queryModule(paramsMap,loginUserId);
+//		String loginId = userBean.getUserId();
+		//token模式(TokenFilter)
+		String loginId = StringUtil.nullToEmpty(request.getParameter("loginId"));
+		return testService.queryModule(paramsMap,loginId);
 		
 	} 
 	
@@ -110,10 +121,13 @@ public class TestController {
         @ApiImplicitParam(name = "name", value = "用户名称", required = true)
 	})
 	@PostMapping("/queryLoginInfo")
-	public Map<String, Object> queryLoginInfo(HttpServletRequest request) throws Exception {
+	public JsonResult queryLoginInfo(HttpServletRequest request) throws Exception {
 		Map<String,Object> paramsMap = ParamUtil.requestParamMap(request);
+		//session模式(SessionFilter)
 		UserBean userBean = (UserBean) request.getSession().getAttribute("sessionBean");
-        String loginId = userBean.getUserId();
+//		String loginId = userBean.getUserId();
+		//token模式(TokenFilter)
+		String loginId = StringUtil.nullToEmpty(request.getParameter("loginId"));
 		return testService.queryLoginInfo(paramsMap,loginId);
 	} 
 	

@@ -7,14 +7,20 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wangwb.web.common.bean.UserBean;
+import com.wangwb.web.common.util.RedisUtil;
 import com.wangwb.web.common.util.StringUtil;
+import com.wangwb.web.common.util.UUIDUtil;
 import com.wangwb.web.dao.LoginDao;
 
 @Service
 public class LoginService {
+	
+	@Autowired
+	private RedisUtil redisUtil;
 	
 	@Resource
 	private LoginDao loginDao;
@@ -53,6 +59,24 @@ public class LoginService {
         	resultMap.put("msg", "请求数据发生异常");
         	throw new RuntimeException(e.getMessage(),e);
         }
+    	return resultMap;
+	}
+
+	public Map<String, Object> loginForToken(Map<String, Object> paramsMap) {
+		Map<String,Object> resultMap = new HashMap<String, Object>();
+    	
+    	String userName = StringUtil.nullToEmpty( paramsMap.get( "userName" ) );//用户名
+    	String password = StringUtil.nullToEmpty( paramsMap.get( "password" ) );//密码
+    	if("wangwenbin".equals(userName) && "111111".equals(password)){
+			String token = UUIDUtil.getNextValue();
+			redisUtil.set("token:"+token,"200975",7200);
+			resultMap.put("msg", "登陆成功");
+			resultMap.put("success",true);
+			resultMap.put("token", token);
+		}else{
+			resultMap.put("success",false);
+			resultMap.put("msg", "登陆失败!密码错误，请检查密码是否正确");
+		}
     	return resultMap;
 	}
 

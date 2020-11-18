@@ -82,5 +82,20 @@ public class LoginController {
 		return resultMap;
 	}
 	
+	/**
+	 * 系统登录
+	 */
+	@ApiOperation(value = "登录系统")
+	@ApiImplicitParams({
+        @ApiImplicitParam(name = "userName", value = "登录用户名", required = true),
+        @ApiImplicitParam(name = "password", value = "登录密码", required = true)
+	})
+	@RequestMapping("/loginForToken")
+	public Map<String, Object> loginForToken(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		//接收前台的参数集
+		Map<String,Object> paramsMap = ParamUtil.requestParamMap(request);
+		return loginService.loginForToken(paramsMap);
+	}
+	
 	
 }

@@ -1,5 +1,6 @@
 package com.wangwb.web.common.configuration;
 
+
 import javax.servlet.Filter;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -9,6 +10,7 @@ import org.springframework.web.filter.DelegatingFilterProxy;
 
 import com.wangwb.web.common.filter.MyFilter;
 import com.wangwb.web.common.filter.SessionFilter;
+import com.wangwb.web.common.filter.TokenFilter;
 
 
 
@@ -20,33 +22,35 @@ import com.wangwb.web.common.filter.SessionFilter;
 @Configuration
 public class FilterConfig {
 
+//	/**
+//	 * filter注册
+//	 */
+//	@Bean
+//	public FilterRegistrationBean sessionFilterRegist() {
+//        FilterRegistrationBean registration = new FilterRegistrationBean();
+//        registration.setFilter( new SessionFilter());
+//        registration.addUrlPatterns("/*");
+//        registration.setOrder(0);
+//        return registration;
+//    }
+	
+	@Bean
+    public Filter tokenFilter() {
+        return new TokenFilter();
+    }
 	/**
-	 * filter注册
+	 * filter注册,可在filter获取应用上下文
 	 */
 	@Bean
-	public FilterRegistrationBean sessionFilterRegist() {
+	public FilterRegistrationBean myFilterRegist() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter( new SessionFilter());
+        registration.setFilter(new DelegatingFilterProxy("tokenFilter"));
         registration.addUrlPatterns("/*");
-        registration.setOrder(0);
+        registration.setOrder(1);
+        registration.setName("tokenFilter");
         return registration;
     }
 	
-//	@Bean
-//    public Filter myFilter() {
-//        return new MyFilter();
-//    }
-//	/**
-//	 * filter注册,可在filter获取应用上下文
-//	 */
-//	@Bean
-//	public FilterRegistrationBean myFilterRegist() {
-//        FilterRegistrationBean registration = new FilterRegistrationBean();
-//        registration.setFilter(new DelegatingFilterProxy("myFilter"));
-//        registration.addUrlPatterns("/*");
-//        registration.setOrder(1);
-//        registration.setName("myFilter");
-//        return registration;
-//    }
+	
 }
 

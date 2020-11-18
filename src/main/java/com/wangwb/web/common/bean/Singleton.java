@@ -1,7 +1,5 @@
 package com.wangwb.web.common.bean;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 单例双重校验实现

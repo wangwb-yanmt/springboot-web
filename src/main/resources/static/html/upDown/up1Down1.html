@@ -27,10 +27,13 @@
 		.box{
 			margin-bottom: 5px;
 			display: flex;
+/* 			flex-flow: row wrap; */
+/* 			align-items: center; */
 		}
 		.box>div{
 			margin-bottom: 0px;
-			flex: 1;
+/* 			box下的元素在一行内宽度等分 */
+ 			flex: 1;
 		}
 		.box>div:not(:first-child){
 			margin-left:10px;
@@ -226,7 +229,7 @@
 	</div>
 </div>
 
-<!-- 小面板 -->
+<!-- 宽度等分 -->
 <div class="box">
 	<div class="layui-card">
 		<div class="layui-card-header">项目</div>
@@ -234,6 +237,34 @@
 			内容
 		</div>
 	</div>
+	<div class="layui-card">
+		<div class="layui-card-header">项目</div>
+		<div class="layui-card-body">
+			内容
+		</div>
+	</div>
+	<div class="layui-card">
+		<div class="layui-card-header">项目</div>
+		<div class="layui-card-body">
+			内容
+		</div>
+	</div>
+	<div class="layui-card">
+		<div class="layui-card-header">项目</div>
+		<div class="layui-card-body">
+			内容内容内容内容内容内容内容内容内容内容内容内容
+			内容内容内容内容内容内容内容内容内容内容内容内容
+			内容内容内容内容内容内容内容内容内容内容内容内容
+			内容内容内容内容内容内容内容内容内容内容内容内容
+			内容内容内容内容内容内容内容内容内容内容内容内容
+			内容内容内容内容内容内容内容内容内容内容内容内容
+			内容内容内容内容内容内容内容内容内容内容内容内容
+			内容内容内容内容内容内容内容内容内容内容内容内容
+			内容内容内容内容内容内容内容内容内容内容内容内容
+		</div>
+	</div>
+</div>
+<div class="box">
 	<div class="layui-card">
 		<div class="layui-card-header">项目</div>
 		<div class="layui-card-body">
