@@ -56,7 +56,7 @@ public class LoginOutController {
     @RequestMapping("/loginOutByToken")
     public JsonResult loginOutByToken(HttpServletRequest request, HttpServletResponse response) {
     	JsonResult jsonResult = new JsonResult();
-    	String token = StringUtil.nullToEmpty(request.getParameter("token"));
+    	String token = StringUtil.nullToEmpty(request.getHeader("token"));
     	try {
 			//删除redis中key
 			redisUtil.del("token:"+token);

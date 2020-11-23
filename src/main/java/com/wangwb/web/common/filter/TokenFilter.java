@@ -15,13 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.ctc.wstx.util.StringUtil;
 import com.wangwb.web.common.bean.JsonResult;
 import com.wangwb.web.common.myenum.ResultCode;
 import com.wangwb.web.common.util.RedisUtil;
 
 import net.sf.json.JSONObject;
-
 
 public class TokenFilter implements Filter {
 	
@@ -31,7 +29,7 @@ public class TokenFilter implements Filter {
 	public FilterConfig filterConfig;
 	
 	//不需要验证token的url,作为后端服务，无需验证的登录接口，前后段一起时加上前端公开模块/public
-	private static final String[] unNeedFilterUrlArray = {"/LoginController"};
+	private static final String[] unNeedFilterUrlArray = {"/LoginController","/LoginOutController"};
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -41,16 +39,17 @@ public class TokenFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
-		
-		
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
+		response.setContentType("application/json;charset=utf-8");
+		//filter设置跨域
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Headers", "*");
+		response.setHeader("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
 		
 		String requestUrl = request.getRequestURI();
 		boolean isNeedFilter = isNeedFilter(requestUrl);
 		JsonResult jsonResult = null;
-		response.setContentType("application/json;charset=utf-8");
-		
 		//ajax跨域OPTIONS预请求直接跳过
 		if(RequestMethod.OPTIONS.name().equals(request.getMethod())) {
 			return;

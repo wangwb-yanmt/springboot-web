@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
-import com.wangwb.web.common.filter.MyFilter;
-import com.wangwb.web.common.filter.SessionFilter;
 import com.wangwb.web.common.filter.TokenFilter;
 
 

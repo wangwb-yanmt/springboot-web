@@ -83,7 +83,7 @@ public class LoginController {
 	}
 	
 	/**
-	 * 系统登录
+	 * 系统登录,前后段分离返回token
 	 */
 	@ApiOperation(value = "登录系统")
 	@ApiImplicitParams({
