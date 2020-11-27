@@ -37,11 +37,12 @@ public class FilterConfig {
         return new TokenFilter();
     }
 	/**
-	 * filter注册,可在filter获取应用上下文
+	 * tokenFilter注册
 	 */
 	@Bean
 	public FilterRegistrationBean myFilterRegist() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
+        	//此种注册可在filter中正常使用容器中的对象
         registration.setFilter(new DelegatingFilterProxy("tokenFilter"));
         registration.addUrlPatterns("/*");
         registration.setOrder(1);

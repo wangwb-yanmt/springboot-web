@@ -1,0 +1,134 @@
+.container{
+	height:100%;
+	padding: 10px;
+}
+/* 圆角卡片 */
+.radius-card{
+	border-radius: 5px;
+	margin-bottom: 5px;
+	background-color: #EEEEEE;
+}
+/* 竖向布局上->下 */
+.flex-column{
+	display: flex;
+	flex-direction: column;
+}
+/* 简单一行,无flex */
+.simple-row{
+	padding: 5px;
+}
+/* 行内容左对齐 */
+.flex-row{
+	padding: 5px;
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	/* 默认左对齐flex-start */
+	justify-content: flex-start;
+}
+/* 行内容居中对齐 */
+.flex-row-center{
+	padding: 5px;
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	justify-content: center;
+}
+/* 行内容右对齐 */
+.flex-row-right{
+	padding: 5px;
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	justify-content: flex-end;
+}
+/* 行内容两端对齐，元素间隔相等 */
+.flex-row-between{
+	padding: 5px;
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	justify-content: space-between;
+}
+/* 元素下边框分割线 */
+.border-bottom{
+	border-bottom: 1px solid #EEEEEE;
+	padding-bottom: 5px;
+}
+/* 适用于占一半 */
+.row-half{
+	width: 50%;
+	text-align: center;
+}
+/* 用在子元素，元素宽度等分 */
+.flex-1{
+	flex: 1;
+}
+.font-large{
+	font-size: large;
+}
+.font-large-bold{
+	font-size: large;
+	font-weight: bold;
+}
+.font-small{
+	font-size: small;
+}
+.font-small-bold{
+	font-size: small;
+	font-weight: bold;
+}
+.font-bold{
+	font-weight: bold;
+}
+.text-center{
+	text-align: center;
+}
+.myButton{
+	color: #555555;
+	border-radius: 5px;
+	font-weight: normal;
+	background-color: #DDDDDD;
+}
+/* 圆形图标 */
+.roundIcon{
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-right: 20px;
+	margin-left: 20px;
+}
+/* 上阴影 */
+.shadow-top{
+	box-shadow: 0 -5px 5px #EEEEEE ;
+}
+/* 下阴影 */
+.shadow-bottom{
+	box-shadow: 0 5px 5px #EEEEEE ;
+}
+.w10{width: 10%;}
+.w20{width: 20%;}
+.w30{width: 30%;}
+.w40{width: 40%;}
+.w50{width: 50%;}
+.w60{width: 60%;}
+.w70{width: 70%;}
+.w80{width: 80%;}
+.w90{width: 90%;}
+.w100{width: 100%;}
+.fs12{font-size: 12px;}
+.fs14{font-size: 14px;}
+.fs16{font-size: 16px;}
+.fs18{font-size: 18px;}
+.mt10{margin-top: 10px;}
+.mt20{margin-top: 20px;}
+.mt30{margin-top: 30px;}
+.mt40{margin-top: 40px;}
+.mt50{margin-top: 50px;}
+.mt60{margin-top: 60px;}
+.mt70{margin-top: 70px;}
+.mt80{margin-top: 80px;}
+.mt90{margin-top: 90px;}
+.mt100{margin-top: 100px;}
