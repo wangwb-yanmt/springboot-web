@@ -35,11 +35,11 @@ public class DownloadFileUtil {
 		String fileName = file.getName();
 //		设置返回类型为二进制流（不知道文件类型）
 		response.setContentType("application/octet-stream");
-		response.setHeader("Content-disposition","attachment; filename=\""+ fileName+ "\"");
 		try {
 			//转换2次 防止文件名过长被截断
 			fileName=URLEncoder.encode(fileName,"GB2312"); 
 			fileName=URLDecoder.decode(fileName, "ISO8859_1"); 
+			response.setHeader("Content-disposition","attachment; filename=\""+ fileName+ "\"");
 			//读取文件
 			InputStream inputStream = new FileInputStream(file);
 			//转为缓存流
@@ -76,11 +76,11 @@ public class DownloadFileUtil {
 	 */
 	public static void downloadFile(InputStream inputStream, String fileName, HttpServletResponse response) throws Exception {
 		response.setContentType("application/octet-stream");
-		response.setHeader("Content-disposition","attachment; filename=\""+ fileName+ "\"");
 		try {
 			//转换2次 防止文件名过长被截断
 			fileName=URLEncoder.encode(fileName,"GB2312"); 
 			fileName=URLDecoder.decode(fileName, "ISO8859_1"); 
+			response.setHeader("Content-disposition","attachment; filename=\""+ fileName+ "\"");
 			//转为缓存流
 			BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
 			//缓存大小

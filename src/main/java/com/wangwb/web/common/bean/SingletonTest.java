@@ -1,6 +1,6 @@
 package com.wangwb.web.common.bean;
 
-public class Test {
+public class SingletonTest {
 
 	public static void main(String[] args) {
 		Singleton aa = Singleton.getSingleton();

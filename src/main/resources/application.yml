@@ -60,7 +60,7 @@ spring:
   redis:
     host: 10.66.1.74
     port: 6379
-    password: wangwenbin
+#    password: wangwenbin
     jedis:
       pool:
         max-active: 8
