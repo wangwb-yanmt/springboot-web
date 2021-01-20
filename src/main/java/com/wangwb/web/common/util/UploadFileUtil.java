@@ -108,7 +108,7 @@ public class UploadFileUtil {
 	}
 	
 	/**
-	 * 	通过transferTo上传  IE8
+	 * 	通过transferTo上传  兼容IE8
 	 * @param file 文件流数据
 	 * @param uploadPath 上传路径
 	 * @return
@@ -118,6 +118,7 @@ public class UploadFileUtil {
 		PrintWriter writer = null;
 		JSONObject object = new JSONObject();
 		try {
+			object.put("success", true);
 			writer = response.getWriter();
 			if (file==null) {
 				object.put("success", false);
@@ -128,25 +129,27 @@ public class UploadFileUtil {
 				object.put("success", false);
 				object.put("msg", "上传失败，文件大小需要限制在3M之内");
 			}
-	    	//获取文件名
-			String fileName = file.getOriginalFilename();
-	    	//创建目标文件
-			String uuid = UUIDUtil.getNextValue();
-			String projectPath = uploadPath + uuid + "/";
-	    	File dest = new File(projectPath+fileName);
-	    	//该目标文件如果已存在则删除
-	    	if(dest.exists()) {
-	    		dest.delete();
-	        }
-	        //检测目标文件是否存在
-	    	if (!dest.exists()) {
-	    		dest.mkdirs();
+			if(object.getBoolean("success")) {
+				//获取文件名
+				String fileName = file.getOriginalFilename();
+		    	//创建目标文件
+				String uuid = UUIDUtil.getNextValue();
+				String projectPath = uploadPath + uuid + "/";
+		    	File dest = new File(projectPath+fileName);
+		    	//该目标文件如果已存在则删除
+		    	if(dest.exists()) {
+		    		dest.delete();
+		        }
+		        //检测目标文件是否存在
+		    	if (!dest.exists()) {
+		    		dest.mkdirs();
+				}
+		    	file.transferTo(dest);
+		    	object.put("success", true);
+		    	object.put("msg", "上传成功");
+		    	object.put("path", projectPath+fileName);
+		    	object.put("fileName",fileName);
 			}
-	    	file.transferTo(dest);
-	    	object.put("success", true);
-	    	object.put("msg", "上传成功");
-	    	object.put("path", projectPath+fileName);
-	    	object.put("fileName",fileName);
 		} catch (IOException e1) {
 			object.put("success", false);
 			object.put("msg", "上传出现异常");
