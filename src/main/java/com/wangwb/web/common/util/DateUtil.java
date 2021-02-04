@@ -83,4 +83,23 @@ public class DateUtil {
 		return calendar.get(Calendar.MILLISECOND);
 	}
 	
+	/**
+	 * 获取时间戳
+	 * @return
+	 */
+	public static final long getTimestamp() {
+		//方式1 效率最高
+		long currentTime=System.currentTimeMillis(); 
+		//方式2
+//		long currentTime=Calendar.getInstance().getTimeInMillis();  
+		//方式3
+//		long currentTime=new Date().getTime();
+		return currentTime;
+	}
+	
+	public static void main(String[] args) {
+		String timestamp = getDate();
+		System.out.println(timestamp);
+	}
+	
 }

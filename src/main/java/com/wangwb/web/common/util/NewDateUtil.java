@@ -7,6 +7,11 @@ import java.time.format.DateTimeFormatter;
 
 import net.bytebuddy.asm.Advice.This;
 
+/**
+ * java8新的日期时间api
+ * @author wangwb@sparknet.com.cn
+ *
+ */
 public class NewDateUtil {
 	
 	//当前日期时间实例
