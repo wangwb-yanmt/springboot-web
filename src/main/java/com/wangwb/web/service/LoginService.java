@@ -26,7 +26,7 @@ public class LoginService {
 	private LoginDao loginDao;
 
 	/**
-	 * 	系统登录
+	 * 	系统登录(session)
 	 * @param paramsMap
 	 * @param session
 	 * @return
@@ -62,6 +62,11 @@ public class LoginService {
     	return resultMap;
 	}
 
+	/**
+	 * 系统登录(redis token)
+	 * @param paramsMap
+	 * @return
+	 */
 	public Map<String, Object> loginForToken(Map<String, Object> paramsMap) {
 		Map<String,Object> resultMap = new HashMap<String, Object>();
     	
