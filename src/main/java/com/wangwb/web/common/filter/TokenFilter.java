@@ -64,6 +64,7 @@ public class TokenFilter implements Filter {
 				}
 				System.out.println("后台接收到的token是："+token);
 				if("".equals(token) || token == null || "null".equals(token)) {
+					//token为空返回json信息
 					PrintWriter out = response.getWriter();
 					jsonResult = new JsonResult(false,ResultCode.USER_NOT_LOGIN.getCode(),ResultCode.USER_NOT_LOGIN.getMessage());
 					JSONObject jsonObject = JSONObject.fromObject(jsonResult);
@@ -81,6 +82,7 @@ public class TokenFilter implements Filter {
 	        			redisUtil.expire("token:"+token, 7200);
 	        			filterChain.doFilter(wrapper, servletResponse);
 	        		} else {
+	        			//token失效返回json信息
 	        			PrintWriter out = response.getWriter();
 	        			jsonResult = new JsonResult(false,ResultCode.USER_ACCOUNT_EXPIRED.getCode(),ResultCode.USER_ACCOUNT_EXPIRED.getMessage());
 	    				JSONObject jsonObject = JSONObject.fromObject(jsonResult);

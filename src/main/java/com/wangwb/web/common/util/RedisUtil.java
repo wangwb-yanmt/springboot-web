@@ -532,5 +532,50 @@ public class RedisUtil {
      }
      
      
+  // ===============================zset 有序集合=================================
+     
+     /**
+	  * description:根据key获取zSet 排序
+	  * @param key
+	  * @return
+	  */
+     public Set<Object> zsGet(String key, int start, int end) {
+         try {
+             return myRedisTemplate.opsForZSet().range(key, start, end);
+         } catch (Exception e) {
+             e.printStackTrace();
+             return null;
+         }
+     }
+     
+     /**
+	  * description:根据key获取zSet 倒序排序
+	  * @param key
+	  * @return
+	  */
+     public Set<Object> zsGetDesc(String key, int start, int end) {
+         try {
+             return myRedisTemplate.opsForZSet().reverseRange(key, start, end);
+         } catch (Exception e) {
+             e.printStackTrace();
+             return null;
+         }
+     }
+     
+     /**
+      * description:将zset数据放入缓存
+      * @param key
+      * @param values
+      * @return	成功个数
+      */
+     public boolean sSet(String key, Object value, double score) {
+         try {
+             return myRedisTemplate.opsForZSet().add(key, value, score);
+         } catch (Exception e) {
+             e.printStackTrace();
+             return false;
+         }
+     }
+     
 	 
 }

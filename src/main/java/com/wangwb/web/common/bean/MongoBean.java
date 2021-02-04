@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection="mongobean")//对应collection:mongobean
+@Document(collection="mongobean")//对应collection:mongobean（类似于oracle的表table）
 public class MongoBean {
 
 	@Id
