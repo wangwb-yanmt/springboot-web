@@ -1,0 +1,39 @@
+当项目中已有commonsupload方式附件上传，再采用spring upload方式会冲突，这是一种简单的解决方案，就是指定请求的mapping采用spring upload，其余的不管
+1. springmvc-servlet中添加bean
+	<bean id="multipartResolver" class="cn.com.sparknet.common.bean.MyMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"></property>
+        <property name="maxUploadSize" value="50000000"></property>
+        <property name="maxInMemorySize" value="50000000"></property>
+        <property name="excludeUrls">
+            <list>
+                <value>/ForeignResidentServlet.json</value>
+            </list>
+        </property>
+    </bean>
+    其中/ForeignResidentServlet.json是使用spring MultipartResolver的mapping类,controller
+    
+2. 自定义MultipartResolver
+public class MyMultipartResolver extends CommonsMultipartResolver {
+	
+	private List<String> excludeUrls;
+	 
+	public void setExcludeUrls(List<String> excludeUrls) {
+		this.excludeUrls = excludeUrls;
+    }
+	public List<String> getExcludeUrls() {
+		return excludeUrls;
+    }
+    /**
+     * 重写 isMultipart 方法，只有请求指定的mapping才会被spring multipartResolver识别，其余的返回false则不管
+     */
+    @Override
+    public boolean isMultipart(HttpServletRequest request) {
+        for (String url : excludeUrls) {
+            if (request.getRequestURI().contains(url)) {
+                return super.isMultipart(request);
+            }
+        }
+        return false;
+    }
+
+}
