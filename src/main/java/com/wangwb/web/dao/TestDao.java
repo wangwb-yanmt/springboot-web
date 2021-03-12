@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.wangwb.web.common.bean.Page;
-import com.wangwb.web.common.component.BaseDao;
-import com.wangwb.web.common.component.BaseDaoTwo;
 import com.wangwb.web.common.util.StringUtil;
+import com.wangwb.web.items.springjdbc.BaseDao;
+import com.wangwb.web.items.springjdbc.BaseDaoTwo;
 
 /**
  * 	测试dao

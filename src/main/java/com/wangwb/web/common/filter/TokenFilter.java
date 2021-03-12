@@ -18,13 +18,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.wangwb.web.common.bean.JsonResult;
 import com.wangwb.web.common.myenum.ResultCode;
 import com.wangwb.web.common.util.RedisUtil;
+import com.wangwb.web.items.redis.MyRedisTemplate;
 
 import net.sf.json.JSONObject;
 
 public class TokenFilter implements Filter {
 	
 	@Resource
-	private RedisUtil redisUtil;
+	private MyRedisTemplate redisUtil;
 	
 	public FilterConfig filterConfig;
 	

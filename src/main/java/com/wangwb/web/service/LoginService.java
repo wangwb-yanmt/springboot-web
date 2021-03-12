@@ -15,12 +15,13 @@ import com.wangwb.web.common.util.RedisUtil;
 import com.wangwb.web.common.util.StringUtil;
 import com.wangwb.web.common.util.UUIDUtil;
 import com.wangwb.web.dao.LoginDao;
+import com.wangwb.web.items.redis.MyRedisTemplate;
 
 @Service
 public class LoginService {
 	
 	@Autowired
-	private RedisUtil redisUtil;
+	private MyRedisTemplate redisUtil;
 	
 	@Resource
 	private LoginDao loginDao;
@@ -67,7 +68,7 @@ public class LoginService {
 	 * @param paramsMap
 	 * @return
 	 */
-	public Map<String, Object> loginForToken(Map<String, Object> paramsMap) {
+	public Map<String, Object> loginForToken(Map<String, Object> paramsMap) throws Exception {
 		Map<String,Object> resultMap = new HashMap<String, Object>();
     	
     	String userName = StringUtil.nullToEmpty( paramsMap.get( "userName" ) );//用户名

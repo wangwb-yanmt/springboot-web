@@ -7,7 +7,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
 
-import com.wangwb.web.common.component.BaseDao;
+import com.wangwb.web.items.springjdbc.BaseDao;
+
 
 
 @Repository

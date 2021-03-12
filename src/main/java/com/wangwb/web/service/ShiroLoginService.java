@@ -8,9 +8,10 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.wangwb.web.common.bean.ShiroPermissions;
-import com.wangwb.web.common.bean.ShiroRole;
-import com.wangwb.web.common.bean.ShiroUser;
+import com.wangwb.web.items.shiro.ShiroPermissions;
+import com.wangwb.web.items.shiro.ShiroRole;
+import com.wangwb.web.items.shiro.ShiroUser;
+
 
 
 /**

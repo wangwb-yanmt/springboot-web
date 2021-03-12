@@ -12,6 +12,7 @@ import com.wangwb.web.common.bean.JsonResult;
 import com.wangwb.web.common.myenum.ResultCode;
 import com.wangwb.web.common.util.RedisUtil;
 import com.wangwb.web.common.util.StringUtil;
+import com.wangwb.web.items.redis.MyRedisTemplate;
 
 /**
  * 	系统登出
@@ -23,7 +24,7 @@ import com.wangwb.web.common.util.StringUtil;
 public class LoginOutController {
 	
 	@Autowired
-	private RedisUtil redisUtil;
+	private MyRedisTemplate redisUtil;
 
 	/**
 	 *	注销/退出系统 session模式

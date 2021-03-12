@@ -12,7 +12,8 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
-import com.wangwb.web.common.bean.MongoBean;
+import com.wangwb.web.items.mongodb.MongoBean;
+
 
 
 

@@ -160,4 +160,60 @@ public class UploadFileUtil {
 		}
 	}
 	
+	/**
+	 * 	通过流上传  兼容IE8
+	 * @param file 文件流数据
+	 * @param uploadPath 上传路径
+	 * @return
+	 */
+	public static void upload2IE8(MultipartFile file, String uploadPath, HttpServletResponse response) {
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter writer = null;
+		JSONObject object = new JSONObject();
+		try {
+			object.put("success", true);
+			writer = response.getWriter();
+			if (file==null) {
+				object.put("success", false);
+				object.put("msg", "上传失败，请选择文件");
+			}
+			int limitSize = 3*1024*1024;
+			if(file.getSize() > limitSize) {
+				object.put("success", false);
+				object.put("msg", "上传失败，文件大小需要限制在3M之内");
+			}
+			if(object.getBoolean("success")) {
+				//获取文件名
+				String fileName = file.getOriginalFilename();
+				//文件流
+				InputStream is = file.getInputStream();
+				String uuid = UUIDUtil.getNextValue();
+				String projectPath = uploadPath+"/"+uuid+"/";//uploadPath：上传到的文件夹，例如upload，存在中间件domain的目录中
+				//定义输出流
+				OutputStream opStream = new FileOutputStream(projectPath+fileName);
+				int temp;
+				//读文件流并返回读取的字节
+				while((temp=is.read())!=(-1)) {
+					//字节写入到输出流
+					opStream.write(temp);
+				}
+				opStream.flush();
+				opStream.close();
+				is.close();
+				
+		    	object.put("success", true);
+		    	object.put("msg", "上传成功");
+		    	object.put("path", projectPath+fileName);
+		    	object.put("fileName",fileName);
+			}
+		} catch (IOException e1) {
+			object.put("success", false);
+			object.put("msg", "上传出现异常");
+		}finally {
+			writer.print(object);
+			writer.flush();
+			writer.close();
+		}
+	}
+	
 }
